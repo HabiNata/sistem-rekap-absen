@@ -15,8 +15,8 @@
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="form-group has-icon-left">
-                                        <label for="first-name-icon">Nama</label>
+                                    <div class="form-group">
+                                        <label for="nama">Nama</label>
                                         <div class="input-group position-relative">
                                             <span class="input-group-text"><i class="bi bi-person"></i></span>
                                             <select class="form-select" name="nama" id="nama">
@@ -33,16 +33,16 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="email-id-icon">NIP</label>
+                                        <label for="nip">NIP</label>
                                         <div class="input-group position-relative">
                                             <span class="input-group-text"><i class="bi bi-hash"></i></span>
-                                            <input type="text" class="form-control" placeholder="NIP" id="nip" name="nip" disabled>
+                                            <input type="number" class="form-control" placeholder="NIP" id="nip" name="nip" disabled>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="mobile-id-icon">Jabatan</label>
+                                        <label for="jabatan">Jabatan</label>
                                         <div class="input-group position-relative">
                                             <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
                                             <input type="text" class="form-control" placeholder="Jabatan" id="jabatan" name="jabatan" disabled>
@@ -50,11 +50,20 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group has-icon-left">
-                                        <label for="password-id-icon">Bulan Absen</label>
+                                    <div class="form-group">
+                                        <label for="absen">Bulan Absen</label>
                                         <div class="input-group position-relative">
                                             <span class="input-group-text"><i class="bi bi-calendar-month"></i></span>
                                             <input type="month" class="form-control" id="absen" name="absen">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="jumlah">Jumlah Absen</label>
+                                        <div class="input-group position-relative">
+                                            <span class="input-group-text"><i class="bi bi-calculator"></i></span>
+                                            <input type="number" class="form-control" id="jumlah" name="jumlah">
                                         </div>
                                     </div>
                                 </div>

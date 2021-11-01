@@ -41,6 +41,21 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item has-sub <?= $user_active ? 'active' : ''; ?>">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-person-fill"></i>
+                                <span>Data User</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item">
+                                    <a href="<?= route_to('list_user'); ?>">LIST</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="<?= route_to('create_user'); ?>">ADD</a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <li class="sidebar-item has-sub <?= $asn_active ? 'active' : ''; ?>">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-check-square-fill"></i>
@@ -56,17 +71,17 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item  has-sub <?= $hr_active ? 'active' : '' ?>">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-clock-fill"></i>
                                 <span>HONORER</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="#">LIST</a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="<?= route_to('list_honorer') ?>">LIST</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="#">ADD</a>
+                                    <a href="<?= route_to('create_honorer'); ?>">ADD</a>
                                 </li>
                             </ul>
                         </li>

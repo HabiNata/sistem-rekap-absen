@@ -38,7 +38,15 @@ $routes->group('rekap_asn', function ($routes) {
     $routes->get('create', 'Asn::create', ['as' => 'create_asn']);
     $routes->get('edit', 'Asn::edit', ['as' => 'edit_asn']);
 });
-
+$routes->group('rekap_honorer', function ($routes) {
+    $routes->get('list', 'honorer::index', ['as' => 'list_honorer']);
+    $routes->get('create', 'honorer::create', ['as' => 'create_honorer']);
+});
+$routes->group('user', function ($routes) {
+    $routes->get('list', 'user::index', ['as' => 'list_user']);
+    $routes->get('create', 'user::create', ['as' => 'create_user']);
+    $routes->get('edit', 'user::edit', ['as' => 'edit_user']);
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing
