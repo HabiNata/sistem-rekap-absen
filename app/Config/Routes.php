@@ -31,7 +31,13 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Login::index', ['as' => 'login']);
+$routes->get('/home', 'Home::index', ['as' => 'home']);
+$routes->group('rekap_asn', function ($routes) {
+    $routes->get('list', 'Asn::index', ['as' => 'list_asn']);
+    $routes->get('create', 'Asn::create', ['as' => 'create_asn']);
+    $routes->get('edit', 'Asn::edit', ['as' => 'edit_asn']);
+});
 
 /*
  * --------------------------------------------------------------------
