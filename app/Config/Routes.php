@@ -45,7 +45,11 @@ $routes->group('rekap_honorer', function ($routes) {
 $routes->group('user', function ($routes) {
     $routes->get('list', 'user::index', ['as' => 'list_user']);
     $routes->get('create', 'user::create', ['as' => 'create_user']);
+    $routes->post('store', 'user::store', ['as' => 'store_user']);
     $routes->get('edit', 'user::edit', ['as' => 'edit_user']);
+});
+$routes->group('profile', function ($routes) {
+    $routes->get('user', 'profile::index', ['as' => 'profile']);
 });
 /*
  * --------------------------------------------------------------------

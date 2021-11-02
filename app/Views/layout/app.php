@@ -34,14 +34,14 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item <?= $dash_active ? 'active' : ''; ?>">
+                        <li class="sidebar-item <?= isset($dash_active) ? 'active' : '' ?>">
                             <a href="<?= route_to('home'); ?>" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub <?= $user_active ? 'active' : ''; ?>">
+                        <li class="sidebar-item has-sub <?= isset($user_active) ? 'active' : '' ?>">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-person-fill"></i>
                                 <span>Data User</span>
@@ -56,7 +56,7 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item has-sub <?= $asn_active ? 'active' : ''; ?>">
+                        <li class="sidebar-item has-sub <?= isset($asn_active) ? 'active' : '' ?>">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-check-square-fill"></i>
                                 <span>ASN</span>
@@ -71,7 +71,7 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub <?= $hr_active ? 'active' : '' ?>">
+                        <li class="sidebar-item  has-sub <?= isset($hr_active) ? 'active' : '' ?>">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-clock-fill"></i>
                                 <span>HONORER</span>
@@ -121,7 +121,7 @@
                                         <li>
                                             <h6 class="dropdown-header">Hello, John!</h6>
                                         </li>
-                                        <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
+                                        <li><a class="dropdown-item" href="<?= route_to('profile'); ?>"><i class="icon-mid bi bi-person me-2"></i> My
                                                 Profile</a>
                                         </li>
                                         <hr class="dropdown-divider">
