@@ -46,7 +46,9 @@ $routes->group('user', function ($routes) {
     $routes->get('list', 'user::index', ['as' => 'list_user']);
     $routes->get('create', 'user::create', ['as' => 'create_user']);
     $routes->post('store', 'user::store', ['as' => 'store_user']);
-    $routes->get('edit', 'user::edit', ['as' => 'edit_user']);
+    $routes->get('edit/(:num)', 'user::edit/$1', ['as' => 'edit_user']);
+    $routes->patch('update/(:num)', 'user::update/$1', ['as' => 'update_user']);
+    $routes->delete('delete/(:num)', 'user::delete/$1', ['as' => 'delete_user']);
 });
 $routes->group('profile', function ($routes) {
     $routes->get('user', 'profile::index', ['as' => 'profile']);

@@ -7,14 +7,16 @@ use App\Models\UserModel;
 
 class User extends BaseController
 {
-    // protected $user;
-    // public function __contruct()
-    // {
-    //     $this->user = new UserModel();
-    // }
     public function index()
     {
-        $data = ['title' => 'List Data User', 'user_active' => 'active'];
+        $user = new UserModel();
+        $userDatas = $user->findAll();
+        $data = [
+            'title' => 'List Data User',
+            'user_active' => 'active',
+            'userDatas' =>  $userDatas,
+        ];
+        // dd($userDatas);
         return view('user/index', $data);
     }
 
@@ -32,6 +34,7 @@ class User extends BaseController
     public function store()
     {
         $user = new UserModel();
+
         $validation = $this->validate([
             'foto' => ['uploaded[foto]', 'max_size[foto,5024]', 'is_image[foto]'],
             'nama' => ['required', 'alpha_numeric_space'],
@@ -46,12 +49,16 @@ class User extends BaseController
         if (!$validation) {
             return redirect()->to(route_to('create_user'))->withInput();
         }
+
         $file = $this->request->getFile('foto');
-        if ($file->getError()) {
+
+        if ($file->getError() == 4) {
             session()->setFlasdata('failed', 'Terjadi Kesalahan Upload Foto');
             return redirect()->to(route_to('create_user'));
         }
+
         $fileName = time() . '~' . $file->getName('foto');
+
         if ($file->isValid() && !$file->hasMoved()) {
             $file->move('image', $fileName);
         }
@@ -68,18 +75,97 @@ class User extends BaseController
         ];
 
         $insert = $user->save($data);
+
         if ($insert) {
-            echo "Data Berhasil diinsert";
+            session()->setFlashdata('success', 'Berhasil Input Data');
+            return redirect()->to(route_to('list_user'));
         } else {
-            echo "<pre>";
-            echo print_r($this->user->errors());
-            echo "</pre>";
+            session()->setFlasdata('failed', 'Gagal Input Data');
+            return redirect()->to(route_to('create_user'));
         }
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $data = ['title' => 'Edit User', 'user_active' => 'active'];
+        $user = new UserModel();
+        $userData = $user->find($id);
+        $data = [
+            'title' => 'Edit User',
+            'user_active' => 'active',
+            'userData' => $userData,
+            'validation' => \Config\Services::validation(),
+        ];
         return view('user/edit', $data);
+    }
+
+    public function update($id)
+    {
+        $user = new UserModel();
+
+        $validation = $this->validate([
+            'foto' => ['max_size[foto,5024]', 'is_image[foto]'],
+            'nama' => ['required', 'alpha_numeric_space'],
+            'tanggal_lahir' => ['required', 'valid_date'],
+            'nip' => ['required', 'numeric', 'is_unique[user.nip]'],
+            'jabatan' => ['required', 'alpha_numeric_space'],
+            'unit' => ['required', 'alpha_numeric_space'],
+            'password' => ['required'],
+            'role' => ['required', 'in_list[admin,asn,honorer]'],
+        ]);
+
+        if (!$validation) {
+            return redirect()->to(route_to('edit_user', $id))->withInput();
+        }
+
+        $userData = $user->find($id);
+
+        $file = $this->request->getFile('foto');
+
+        if ($file->getError() == 4) {
+            $fileName = $userData['foto'];
+        } else {
+            $fileName = time() . '~' . $file->getName('foto');
+
+            if ($file->isValid() && !$file->hasMoved()) {
+                $file->move('image', $fileName);
+                unlink('image/' . $userData['foto']);
+            }
+        }
+
+        $data = [
+            'foto' => $fileName,
+            'nama' => $this->request->getVar('nama'),
+            'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
+            'nip' => $this->request->getVar('nip'),
+            'jabatan' => $this->request->getVar('jabatan'),
+            'unit' => $this->request->getVar('unit'),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'role' => $this->request->getVar('role'),
+        ];
+
+        $update = $user->update($id, $data);
+
+        if ($update) {
+            session()->setFlashdata('success', 'Berhasil Update Data');
+            return redirect()->to(route_to('list_user'));
+        } else {
+            session()->setFlasdata('failed', 'Gagal Update Data');
+            return redirect()->to(route_to('create_user'));
+        }
+    }
+
+    public function delete($id)
+    {
+        $user = new UserModel();
+
+        $userData = $user->find($id);
+        unlink('image/' . $userData['foto']);
+        $delete = $user->delete($id);
+
+        if ($delete) {
+            return $this->response->setJSON(['data' => $userData['nama'], 'status' => 200]);
+        } else {
+            return $this->response->setJSON(['data' => $userData['nama'], 'status' => 500]);
+        }
     }
 }
