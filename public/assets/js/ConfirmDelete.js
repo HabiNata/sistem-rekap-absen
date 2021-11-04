@@ -40,7 +40,7 @@ $('.removeEventDB').on('click', function(event) {
                     console.log(data);
                 },
                 error: function(data) {
-                    console.log('Error:', data);
+                    console.log('Error:', data.message);
                     Swal.fire({
                         title: 'Error!',
                         text: 'Failed Delete!',

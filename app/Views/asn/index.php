@@ -13,11 +13,18 @@
     }
 </style>
 <link rel="stylesheet" href="<?= base_url('assets/vendors/fontawesome/all.min.css'); ?>">
+<link rel="stylesheet" href="<?= base_url('assets/vendors/sweetalert2/sweetalert2.min.css'); ?>">
 <?= $this->endSection(); ?>
 
 <?= $this->section('content'); ?>
 <!-- Basic Tables start -->
 <section class="section">
+    <?php if (session('success')) : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= session()->getFlashdata('success'); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
     <div class="card">
         <div class="card-header">
             Jquery Datatable
@@ -26,28 +33,31 @@
             <table class="table" id="table1">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>City</th>
-                        <th>Status</th>
+                        <th>Nama</th>
+                        <th>Nip</th>
+                        <th>Jabatan</th>
+                        <th>Bulan Absen</th>
+                        <th>Jumlah Absen</th>
+                        <th>Keterangan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Graiden</td>
-                        <td>vehicula.aliquet@semconsequat.co.uk</td>
-                        <td>076 4820 8838</td>
-                        <td>Offenburg</td>
-                        <td>
-                            <span class="badge bg-success">Active</span>
-                        </td>
-                        <td>
-                            <a href="<?= route_to('edit_asn'); ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
-                    </tr>
+                    <?php $i = 1;
+                    foreach ($asnDatas as $asnData) : ?>
+                        <tr>
+                            <td><?= $i++; ?></td>
+                            <td><?= $asnData['nama']; ?></td>
+                            <td><?= $asnData['jabatan']; ?></td>
+                            <td><?= $asnData['absen']; ?></td>
+                            <td><?= $asnData['jumlah']; ?></td>
+                            <td><?= word_limiter($asnData['keterangan'], 10) ?></td>
+                            <td>
+                                <a href="<?= route_to('edit_asn', $asnData['id']); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="#" class="btn btn-danger btn-sm removeEventDB" data-id="<?= $asnData['id']; ?>" data-url="<?= route_to('delete_asn', $asnData['id']); ?>">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
@@ -68,4 +78,6 @@
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
 </script>
+<script src="<?= base_url('assets/vendors/sweetalert2/sweetalert2.all.min.js'); ?>"></script>
+<script src="<?= base_url('assets/js/ConfirmDelete.js'); ?>"></script>
 <?= $this->endSection() ?>

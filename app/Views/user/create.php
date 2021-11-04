@@ -44,6 +44,7 @@ use CodeIgniter\Filters\CSRF;
                                             <div class="input-group position-relative">
                                                 <span class="input-group-text"><i class="bi bi-key"></i></span>
                                                 <select name="role" id="role" class="form-select <?= ($validation->hasError('role')) ? 'is-invalid' : '' ?>">
+                                                    <option value="" selected disabled>--Select--</option>
                                                     <option value="admin" <?= old('role') == 'admin' ? 'selected' : '' ?>>Administrator</option>
                                                     <option value="asn" <?= old('role') == 'asn' ? 'selected' : '' ?>>ASN</option>
                                                     <option value="honorer" <?= old('role') == 'honorer' ? 'selected' : '' ?>>Honorer</option>
@@ -66,7 +67,7 @@ use CodeIgniter\Filters\CSRF;
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12" id="hide">
                                         <div class="form-group">
                                             <label for="nip">NIP</label>
                                             <div class="input-group position-relative">
@@ -144,4 +145,17 @@ use CodeIgniter\Filters\CSRF;
 <!-- Include Choices JavaScript -->
 <script src="<?= base_url('assets/vendors/choices.js/choices.min.js'); ?>"></script>
 <script src="<?= base_url('assets/js/pages/form-element-select.js'); ?>"></script>
+<script>
+    const role = document.getElementById('role');
+    const hide = document.getElementById('hide');
+    hide.hidden = true;
+    role.onchange = event => {
+        let roleValue = role.value;
+        if (roleValue == "asn" || roleValue == "admin") {
+            hide.hidden = false;
+        } else {
+            hide.hidden = true;
+        }
+    }
+</script>
 <?= $this->endSection(); ?>

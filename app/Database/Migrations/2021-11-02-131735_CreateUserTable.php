@@ -32,7 +32,7 @@ class CreateUserTable extends Migration
             'nip' => [
                 'type' => 'INT',
                 'constraint' => '15',
-                'null' => false,
+                'null' => true,
             ],
             'jabatan' => [
                 'type' => 'varchar',
@@ -67,7 +67,6 @@ class CreateUserTable extends Migration
                 'null' => true
             ],
         ]);
-
 
         $this->forge->addKey('id', true);
         $this->forge->createTable('user');

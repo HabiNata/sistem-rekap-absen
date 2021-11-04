@@ -66,7 +66,7 @@ use CodeIgniter\Filters\CSRF;
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12" id="hide">
                                         <div class="form-group">
                                             <label for="nip">NIP</label>
                                             <div class="input-group position-relative">
@@ -144,4 +144,25 @@ use CodeIgniter\Filters\CSRF;
 <!-- Include Choices JavaScript -->
 <script src="<?= base_url('assets/vendors/choices.js/choices.min.js'); ?>"></script>
 <script src="<?= base_url('assets/js/pages/form-element-select.js'); ?>"></script>
+<script>
+    const role = document.getElementById('role');
+    const hide = document.getElementById('hide');
+    const nip = document.getElementById('nip');
+    if (role.value == "admin" || role.value == "asn") {
+        hide.hidden = false;
+    } else {
+        hide.hidden = true;
+        nip.value = null;
+    }
+
+    role.onchange = event => {
+        let roleValue = role.value;
+        if (roleValue == "asn" || roleValue == "admin") {
+            hide.hidden = false;
+        } else {
+            hide.hidden = true;
+            nip.value = null;
+        }
+    }
+</script>
 <?= $this->endSection(); ?>

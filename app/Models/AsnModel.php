@@ -7,28 +7,24 @@ use CodeIgniter\Model;
 class AsnModel extends Model
 {
     protected $DBGroup              = 'default';
-    protected $table                = 'asns';
+    protected $table                = 'asn';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'array';
     protected $useSoftDeletes       = true;
     protected $protectFields        = true;
-    protected $allowedFields        = ['id_user', 'absen', 'jumlah'];
+    protected $allowedFields        = ['user_id', 'absen', 'jumlah', 'keterangan'];
 
     // Dates
-    protected $useTimestamps        = false;
+    protected $useTimestamps        = true;
     protected $dateFormat           = 'datetime';
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
     protected $deletedField         = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [
-        'id_user' => ['required'],
-        'absen' => ['required', 'valid_date[M/Y]'],
-        'jumlah' => ['required', 'numeric'],
-    ];
+    protected $validationRules      = [];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;

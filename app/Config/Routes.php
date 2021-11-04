@@ -32,16 +32,27 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Login::index', ['as' => 'login']);
+
 $routes->get('/home', 'Home::index', ['as' => 'home']);
-$routes->group('rekap_asn', function ($routes) {
+
+// ASN
+$routes->group('asn', function ($routes) {
     $routes->get('list', 'Asn::index', ['as' => 'list_asn']);
     $routes->get('create', 'Asn::create', ['as' => 'create_asn']);
-    $routes->get('edit', 'Asn::edit', ['as' => 'edit_asn']);
+    $routes->get('edit/(:num)', 'Asn::edit/$1', ['as' => 'edit_asn']);
+    $routes->patch('update/(:num)', 'Asn::update/$1', ['as' => 'update_asn']);
+    $routes->post('store', 'Asn::store', ['as' => 'store_asn']);
+    $routes->post('data/(:num)', 'Asn::data/$1', ['as' => 'data_user']);
+    $routes->delete('delete/(:num)', 'Asn::delete/$1', ['as' => 'delete_asn']);
 });
-$routes->group('rekap_honorer', function ($routes) {
+
+// HONORER
+$routes->group('honorer', function ($routes) {
     $routes->get('list', 'honorer::index', ['as' => 'list_honorer']);
     $routes->get('create', 'honorer::create', ['as' => 'create_honorer']);
 });
+
+// USER
 $routes->group('user', function ($routes) {
     $routes->get('list', 'user::index', ['as' => 'list_user']);
     $routes->get('create', 'user::create', ['as' => 'create_user']);
@@ -50,6 +61,8 @@ $routes->group('user', function ($routes) {
     $routes->patch('update/(:num)', 'user::update/$1', ['as' => 'update_user']);
     $routes->delete('delete/(:num)', 'user::delete/$1', ['as' => 'delete_user']);
 });
+
+// PROFILE
 $routes->group('profile', function ($routes) {
     $routes->get('user', 'profile::index', ['as' => 'profile']);
 });

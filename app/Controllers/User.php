@@ -34,12 +34,17 @@ class User extends BaseController
     public function store()
     {
         $user = new UserModel();
+        if ($this->request->getVar('role') == 'honorer') {
+            $nipRule = ['numeric', 'is_unique[user.nip]', 'permit_empty'];
+        } else {
+            $nipRule = ['required', 'numeric', 'is_unique[user.nip]'];
+        }
 
         $validation = $this->validate([
             'foto' => ['uploaded[foto]', 'max_size[foto,5024]', 'is_image[foto]'],
             'nama' => ['required', 'alpha_numeric_space'],
             'tanggal_lahir' => ['required', 'valid_date'],
-            'nip' => ['required', 'numeric', 'is_unique[user.nip]'],
+            'nip' => $nipRule,
             'jabatan' => ['required', 'alpha_numeric_space'],
             'unit' => ['required', 'alpha_numeric_space'],
             'password' => ['required'],
@@ -102,11 +107,19 @@ class User extends BaseController
     {
         $user = new UserModel();
 
+        $userData = $user->find($id);
+
+        if ($this->request->getVar('role') == 'honorer') {
+            $nipRule = ['numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']', 'permit_empty'];
+        } else {
+            $nipRule = ['required', 'numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']'];
+        }
+
         $validation = $this->validate([
             'foto' => ['max_size[foto,5024]', 'is_image[foto]'],
             'nama' => ['required', 'alpha_numeric_space'],
             'tanggal_lahir' => ['required', 'valid_date'],
-            'nip' => ['required', 'numeric', 'is_unique[user.nip]'],
+            'nip' => $nipRule,
             'jabatan' => ['required', 'alpha_numeric_space'],
             'unit' => ['required', 'alpha_numeric_space'],
             'password' => ['required'],
@@ -116,8 +129,6 @@ class User extends BaseController
         if (!$validation) {
             return redirect()->to(route_to('edit_user', $id))->withInput();
         }
-
-        $userData = $user->find($id);
 
         $file = $this->request->getFile('foto');
 
@@ -159,7 +170,7 @@ class User extends BaseController
         $user = new UserModel();
 
         $userData = $user->find($id);
-        unlink('image/' . $userData['foto']);
+        // unlink('image/' . $userData['foto']);
         $delete = $user->delete($id);
 
         if ($delete) {

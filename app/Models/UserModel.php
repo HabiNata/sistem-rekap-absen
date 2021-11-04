@@ -12,7 +12,7 @@ class UserModel extends Model
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'array';
-    protected $useSoftDeletes       = false;
+    protected $useSoftDeletes       = true;
     protected $protectFields        = true;
     protected $allowedFields        = ['foto', 'nama', 'tanggal_lahir', 'nip', 'jabatan', 'unit', 'password', 'role'];
 
@@ -24,16 +24,7 @@ class UserModel extends Model
     protected $deletedField         = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [
-        // 'foto' => ['uploaded[foto]', 'max_size[foto,5024]', 'is_image[foto]'],
-        // 'nama' => ['required', 'alpha_numeric_space'],
-        // 'tanggal_lahir' => ['required', 'valid_date'],
-        // 'nip' => ['required', 'numeric', 'is_unique[user.nip]'],
-        // 'jabatan' => ['required', 'alpha_numeric_space'],
-        // 'unit' => ['required', 'alpha_numeric_space'],
-        // 'password' => ['required'],
-        // 'role' => ['required', 'in_list[admin,asn,honorer]'],
-    ];
+    protected $validationRules      = [];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;

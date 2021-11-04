@@ -20,7 +20,7 @@
 <!-- Basic Tables start -->
 <section class="section">
     <?php if (session('success')) : ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <?= session()->getFlashdata('success'); ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -53,7 +53,7 @@
                             <td class="text-uppercase"><?= $userData['role']; ?></td>
                             <td>
                                 <a href="<?= route_to('edit_user', $userData['id']); ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="#" class="btn btn-danger btn-sm removeEventDB" data-id="<?= $userData['id']; ?>" data-id="<?= $userData['id']; ?>" data-url="<?= route_to('delete_user', $userData['id']); ?>">Delete</a>
+                                <a href="#" class="btn btn-danger btn-sm removeEventDB" data-id="<?= $userData['id']; ?>" data-url="<?= route_to('delete_user', $userData['id']); ?>">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
