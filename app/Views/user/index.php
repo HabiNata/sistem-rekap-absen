@@ -31,6 +31,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Foto</th>
                         <th>Nama</th>
                         <th>NIP</th>
                         <th>Tanggal Lahir</th>
@@ -45,6 +46,9 @@
                     foreach ($userDatas as $userData) : ?>
                         <tr>
                             <td><?= $i++; ?></td>
+                            <th>
+                                <div class="avatar avatar-lg"><img src="<?= base_url('image/' . $userData['foto']) ?>" alt=""></div>
+                            </th>
                             <td><?= $userData['nama']; ?></td>
                             <td><?= $userData['nip']; ?></td>
                             <td><?= $userData['tanggal_lahir']; ?></td>

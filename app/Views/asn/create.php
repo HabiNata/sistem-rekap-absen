@@ -18,6 +18,7 @@
             <div class="card-content">
                 <div class="card-body">
                     <form action="<?= route_to('store_asn'); ?>" method="post" enctype="multipart/form-data" class="form form-vertical">
+                        <?= csrf_field() ?>
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-12">
@@ -131,7 +132,7 @@
             success: function(data) {
                 $('#nip').val(data.nip);
                 $('#jabatan').val(data.jabatan);
-                console.log(data);
+                console.log(data.nama);
             },
             error: function(e) {
                 console.log(e.message);

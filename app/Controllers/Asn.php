@@ -17,7 +17,7 @@ class Asn extends BaseController
     {
         $asn = new AsnModel();
 
-        $asnDatas = $asn->select('asn.*, asn.user_id, user.nama, user.jabatan')->join('user', 'asn.user_id=user.id')->findAll();
+        $asnDatas = $asn->select('asn.*, asn.user_id, user.nama, user.jabatan, user.nip')->join('user', 'asn.user_id=user.id')->findAll();
         // dd($asnDatas);
 
         $data = [
@@ -146,6 +146,21 @@ class Asn extends BaseController
         } else {
             return $this->response->setJSON(['data' => $asnData['user_id'], 'status' => 500]);
         }
+    }
+
+    public function show($id)
+    {
+        $asn = new AsnModel();
+
+        $asnData = $asn->select('asn.*, user.nama, user.nip, user.jabatan')->join('user', 'asn.user_id=user.id')->find($id);
+
+        $data = [
+            'title' => 'Show Detail ASN',
+            'asn_active' => 'active',
+            'asnData' => $asnData,
+        ];
+
+        return view('asn/show', $data);
     }
 
     public function data($id)

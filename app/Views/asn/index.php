@@ -33,6 +33,7 @@
             <table class="table" id="table1">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Nama</th>
                         <th>Nip</th>
                         <th>Jabatan</th>
@@ -48,11 +49,13 @@
                         <tr>
                             <td><?= $i++; ?></td>
                             <td><?= $asnData['nama']; ?></td>
+                            <td><?= $asnData['nip']; ?></td>
                             <td><?= $asnData['jabatan']; ?></td>
                             <td><?= $asnData['absen']; ?></td>
                             <td><?= $asnData['jumlah']; ?></td>
-                            <td><?= word_limiter($asnData['keterangan'], 10) ?></td>
+                            <td><?= word_limiter($asnData['keterangan'], 10) . '....' ?></td>
                             <td>
+                                <a href="<?= route_to('show_asn', $asnData['id']); ?>" class="btn btn-light btn-sm">Show</a>
                                 <a href="<?= route_to('edit_asn', $asnData['id']); ?>" class="btn btn-warning btn-sm">Edit</a>
                                 <a href="#" class="btn btn-danger btn-sm removeEventDB" data-id="<?= $asnData['id']; ?>" data-url="<?= route_to('delete_asn', $asnData['id']); ?>">Delete</a>
                             </td>

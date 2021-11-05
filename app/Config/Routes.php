@@ -44,12 +44,19 @@ $routes->group('asn', function ($routes) {
     $routes->post('store', 'Asn::store', ['as' => 'store_asn']);
     $routes->post('data/(:num)', 'Asn::data/$1', ['as' => 'data_user']);
     $routes->delete('delete/(:num)', 'Asn::delete/$1', ['as' => 'delete_asn']);
+    $routes->get('show/(:num)', 'Asn::show/$1', ['as' => 'show_asn']);
 });
 
 // HONORER
 $routes->group('honorer', function ($routes) {
     $routes->get('list', 'honorer::index', ['as' => 'list_honorer']);
     $routes->get('create', 'honorer::create', ['as' => 'create_honorer']);
+    $routes->post('store', 'honorer::store', ['as' => 'store_honorer']);
+    $routes->post('data/(:num)', 'honorer::data/$1', ['as' => 'data_user']);
+    $routes->get('edit/(:num)', 'honorer::edit/$1', ['as' => 'edit_honorer']);
+    $routes->patch('update/(:num)', 'honorer::update', ['as' => 'update_honorer']);
+    $routes->delete('delete/(:num)', 'honorer::delete/$1', ['as' => 'delete_honorer']);
+    $routes->get('show/(:num)', 'honorer::show/$1', ['as' => 'show_honorer']);
 });
 
 // USER

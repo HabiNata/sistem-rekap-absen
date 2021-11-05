@@ -18,7 +18,7 @@
             <div class="card-content">
                 <div class="card-body">
                     <form method="post" action="<?= route_to('update_asn', $asnData['id']) ?>" enctype='multipart/form-data' class="form form-vertical">
-                        <?= csrf_field(); ?>
+                        <?= csrf_field() ?>
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-12">
@@ -122,7 +122,7 @@
         event.preventDefault();
         $.ajax({
             type: 'POST',
-            url: '/rekap_asn/data/' + $('#nama').val(),
+            url: '/asn/data/' + $('#nama').val(),
 
             dataType: 'json',
             data: {
