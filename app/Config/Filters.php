@@ -54,6 +54,7 @@ class Filters extends BaseConfig
                     'asn/*',
                     'honorer/*',
                     'login/*',
+                    'profile/*'
                 ],
             ],
             'asn' => [

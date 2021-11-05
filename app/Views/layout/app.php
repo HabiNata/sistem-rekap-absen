@@ -132,7 +132,7 @@
                                         <li>
                                             <h6 class="dropdown-header">Hello, <?= session()->get('nama'); ?>!</h6>
                                         </li>
-                                        <li><a class="dropdown-item" href="<?= route_to('profile'); ?>"><i class="icon-mid bi bi-person me-2"></i> My
+                                        <li><a class="dropdown-item" href="<?= route_to('profile', session()->get('nip')); ?>"><i class="icon-mid bi bi-person me-2"></i> My
                                                 Profile</a>
                                         </li>
                                         <hr class="dropdown-divider">
