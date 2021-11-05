@@ -17,7 +17,12 @@ class Asn extends BaseController
     {
         $asn = new AsnModel();
 
-        $asnDatas = $asn->select('asn.*, asn.user_id, user.nama, user.jabatan, user.nip')->join('user', 'asn.user_id=user.id')->findAll();
+        if (session()->get('role') == 'admin') {
+            $asnDatas = $asn->select('asn.*, asn.user_id, user.nama, user.jabatan, user.nip')->join('user', 'asn.user_id=user.id')->findAll();
+        }
+        if (session()->get('role') == 'asn') {
+            $asnDatas = $asn->select('asn.*, asn.user_id, user.nama, user.jabatan, user.nip')->join('user', 'asn.user_id=user.id')->where('user.nip', session()->get('nip'))->findAll();
+        }
         // dd($asnDatas);
 
         $data = [

@@ -41,50 +41,61 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub <?= isset($user_active) ? 'active' : '' ?>">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-person-fill"></i>
-                                <span>Data User</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item">
-                                    <a href="<?= route_to('list_user'); ?>">LIST</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="<?= route_to('create_user'); ?>">ADD</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php if (session()->get('role') === 'admin') : ?>
+                            <li class="sidebar-item has-sub <?= isset($user_active) ? 'active' : '' ?>">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-person-fill"></i>
+                                    <span>Data User</span>
+                                </a>
+                                <ul class="submenu ">
+                                    <li class="submenu-item">
+                                        <a href="<?= route_to('list_user'); ?>">LIST</a>
+                                    </li>
+                                    <li class="submenu-item">
+                                        <a href="<?= route_to('create_user'); ?>">ADD</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
 
-                        <li class="sidebar-item has-sub <?= isset($asn_active) ? 'active' : '' ?>">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-check-square-fill"></i>
-                                <span>ASN</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="<?= route_to('list_asn'); ?>">LIST</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<?= route_to('create_asn'); ?>">ADD</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php if (session()->get('role') === 'admin' || session()->get('role') === 'asn') : ?>
+                            <li class="sidebar-item has-sub <?= isset($asn_active) ? 'active' : '' ?>">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-check-square-fill"></i>
+                                    <span>ASN</span>
+                                </a>
+                                <ul class="submenu ">
+                                    <li class="submenu-item ">
+                                        <a href="<?= route_to('list_asn'); ?>">LIST</a>
+                                    </li>
+                                    <?php if (session()->get('role') === 'admin') : ?>
+                                        <li class="submenu-item ">
+                                            <a href="<?= route_to('create_asn'); ?>">ADD</a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
 
-                        <li class="sidebar-item  has-sub <?= isset($hr_active) ? 'active' : '' ?>">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-clock-fill"></i>
-                                <span>HONORER</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="<?= route_to('list_honorer') ?>">LIST</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<?= route_to('create_honorer'); ?>">ADD</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php if (session()->get('role') === 'admin' || session()->get('role') === 'honorer') : ?>
+                            <li class="sidebar-item  has-sub <?= isset($hr_active) ? 'active' : '' ?>">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-clock-fill"></i>
+                                    <span>HONORER</span>
+                                </a>
+                                <ul class="submenu">
+                                    <li class="submenu-item">
+                                        <a href="<?= route_to('list_honorer') ?>">LIST</a>
+                                    </li>
+                                    <?php if (session()->get('role') === 'admin') : ?>
+                                        <li class="submenu-item ">
+                                            <a href="<?= route_to('create_honorer'); ?>">ADD</a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
+
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -107,26 +118,26 @@
                                     <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="user-menu d-flex">
                                             <div class="user-name text-end me-3">
-                                                <h6 class="mb-0 text-gray-600">John Ducky</h6>
-                                                <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                                <h6 class="mb-0 text-gray-600"><?= session()->get('nama'); ?></h6>
+                                                <p class="mb-0 text-sm text-gray-600 text-uppercase"><?= session()->get('role'); ?></p>
                                             </div>
                                             <div class="user-img d-flex align-items-center">
                                                 <div class="avatar avatar-md">
-                                                    <img src="<?= base_url('assets/images/faces/1.jpg'); ?>">
+                                                    <img src="<?= base_url('image/' . session()->get('foto')); ?>">
                                                 </div>
                                             </div>
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
                                         <li>
-                                            <h6 class="dropdown-header">Hello, John!</h6>
+                                            <h6 class="dropdown-header">Hello, <?= session()->get('nama'); ?>!</h6>
                                         </li>
                                         <li><a class="dropdown-item" href="<?= route_to('profile'); ?>"><i class="icon-mid bi bi-person me-2"></i> My
                                                 Profile</a>
                                         </li>
                                         <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
+                                        <li><a class="dropdown-item" href="<?= route_to('user_logout'); ?>"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
                                     </ul>
                                 </div>
                             </div>

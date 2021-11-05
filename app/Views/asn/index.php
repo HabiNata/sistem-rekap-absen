@@ -56,8 +56,10 @@
                             <td><?= word_limiter($asnData['keterangan'], 10) . '....' ?></td>
                             <td>
                                 <a href="<?= route_to('show_asn', $asnData['id']); ?>" class="btn btn-light btn-sm">Show</a>
-                                <a href="<?= route_to('edit_asn', $asnData['id']); ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="#" class="btn btn-danger btn-sm removeEventDB" data-id="<?= $asnData['id']; ?>" data-url="<?= route_to('delete_asn', $asnData['id']); ?>">Delete</a>
+                                <?php if (session()->get('role') === 'admin') : ?>
+                                    <a href="<?= route_to('edit_asn', $asnData['id']); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="#" class="btn btn-danger btn-sm removeEventDB" data-id="<?= $asnData['id']; ?>" data-url="<?= route_to('delete_asn', $asnData['id']); ?>">Delete</a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

@@ -123,10 +123,9 @@
         $.ajax({
             type: 'POST',
             url: 'data/' + $('#nama').val(),
-
             dataType: 'json',
             data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?= csrf_token() ?>",
                 "id": $('#nama').val(),
             },
             success: function(data) {

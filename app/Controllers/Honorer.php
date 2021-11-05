@@ -17,7 +17,12 @@ class Honorer extends BaseController
     {
         $honorer = new HonorerModel();
 
-        $honorerDatas = $honorer->select('honorer.*, user.nama, user.jabatan')->join('user', 'user.id=honorer.user_id')->findAll();
+        if (session()->get('role') == 'admin') {
+            $honorerDatas = $honorer->select('honorer.*, user.nama, user.jabatan, user.nip')->join('user', 'user.id=honorer.user_id')->findAll();
+        }
+        if (session()->get('role') == 'honorer') {
+            $honorerDatas = $honorer->select('honorer.*, user.nama, user.jabatan, user.nip')->join('user', 'user.id=honorer.user_id')->where('user.nip', session()->get('nip'))->findAll();
+        }
 
         $data = [
             'title' => 'List Absen Honorer',

@@ -34,17 +34,17 @@ class User extends BaseController
     public function store()
     {
         $user = new UserModel();
-        if ($this->request->getVar('role') == 'honorer') {
-            $nipRule = ['numeric', 'is_unique[user.nip]', 'permit_empty'];
-        } else {
-            $nipRule = ['required', 'numeric', 'is_unique[user.nip]'];
-        }
+        // if ($this->request->getVar('role') == 'honorer') {
+        //     $nipRule = ['numeric', 'is_unique[user.nip]', 'permit_empty'];
+        // } else {
+        //     $nipRule = ['required', 'numeric', 'is_unique[user.nip]'];
+        // }
 
         $validation = $this->validate([
             'foto' => ['uploaded[foto]', 'max_size[foto,5024]', 'is_image[foto]'],
             'nama' => ['required', 'alpha_numeric_space'],
             'tanggal_lahir' => ['required', 'valid_date'],
-            'nip' => $nipRule,
+            'nip' => ['required', 'numeric', 'is_unique[user.nip]'],
             'jabatan' => ['required', 'alpha_numeric_space'],
             'unit' => ['required', 'alpha_numeric_space'],
             'password' => ['required'],
@@ -109,17 +109,17 @@ class User extends BaseController
 
         $userData = $user->find($id);
 
-        if ($this->request->getVar('role') == 'honorer') {
-            $nipRule = ['numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']', 'permit_empty'];
-        } else {
-            $nipRule = ['required', 'numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']'];
-        }
+        // if ($this->request->getVar('role') == 'honorer') {
+        //     $nipRule = ['numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']', 'permit_empty'];
+        // } else {
+        //     $nipRule = ['required', 'numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']'];
+        // }
 
         $validation = $this->validate([
             'foto' => ['max_size[foto,5024]', 'is_image[foto]'],
             'nama' => ['required', 'alpha_numeric_space'],
             'tanggal_lahir' => ['required', 'valid_date'],
-            'nip' => $nipRule,
+            'nip' => ['required', 'numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']'],
             'jabatan' => ['required', 'alpha_numeric_space'],
             'unit' => ['required', 'alpha_numeric_space'],
             'password' => ['required'],
