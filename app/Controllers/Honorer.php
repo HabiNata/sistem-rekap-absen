@@ -59,7 +59,7 @@ class Honorer extends BaseController
             'nama' => ['required', 'numeric'],
             'absen' => ['required', 'valid_date'],
             'jumlah' => ['required', 'numeric'],
-            'keterangan' => ['required'],
+            'keterangan' => [],
         ]);
 
         if (!$validation) {
@@ -113,7 +113,7 @@ class Honorer extends BaseController
             'nama' => ['required', 'numeric'],
             'absen' => ['required', 'valid_date'],
             'jumlah' => ['required', 'numeric'],
-            'keterangan' => ['required'],
+            'keterangan' => [],
         ]);
 
         if (!$validation) {
