@@ -85,15 +85,15 @@
                                 </ul>
                             </li>
                         <?php endif; ?>
-                        <li class="sidebar-item">
-                            <a href="#" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                <i class="bi bi-printer-fill"></i>
-                                <span>Print</span>
-                            </a>
-                            <!-- <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                Launch Modal
-                            </button> -->
-                        </li>
+
+                        <?php if (session()->get('role') === 'admin') : ?>
+                            <li class="sidebar-item">
+                                <a href="#" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <i class="bi bi-printer-fill"></i>
+                                    <span>Print</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
