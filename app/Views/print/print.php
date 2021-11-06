@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <input type="button" onclick="printDiv('printableArea')" value="print a div!" />
+                        <input type="button" class="btn btn-primary" onclick="printDiv('printableArea')" value="Print" />
                     </div>
                 </div>
             </div>

@@ -27,9 +27,9 @@ class Cetak extends BaseController
         $builder = $db->table($table);
 
         if ($from == null || $to == null) {
-            $absens = $builder->join('user', 'user.id=' . $table . '.user_id')->get();
+            $absens = $builder->where($table . '.deleted_at', null)->join('user', 'user.id=' . $table . '.user_id')->get();
         } else {
-            $absens = $builder->where("absen BETWEEN '$from' AND '$to'")->join('user', 'user.id=' . $table . '.user_id')->get();
+            $absens = $builder->where("absen BETWEEN '$from' AND '$to'")->where($table . '.deleted_at', null)->join('user', 'user.id=' . $table . '.user_id')->get();
         }
 
         $data = [
