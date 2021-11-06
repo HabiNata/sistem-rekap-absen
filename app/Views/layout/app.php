@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vertical Navbar - Mazer Admin Dashboard</title>
+    <title>Rekap Absensi</title>
     <?= $this->renderSection('before-style'); ?>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -20,16 +20,6 @@
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href="#"><img src="<?= base_url('assets/images/logo/logo.png'); ?>" alt="Logo" srcset=""></a>
-                        </div>
-                        <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
-                    </div>
-                </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
@@ -95,7 +85,15 @@
                                 </ul>
                             </li>
                         <?php endif; ?>
-
+                        <li class="sidebar-item">
+                            <a href="#" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                <i class="bi bi-printer-fill"></i>
+                                <span>Print</span>
+                            </a>
+                            <!-- <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                Launch Modal
+                            </button> -->
+                        </li>
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -158,7 +156,7 @@
                     <?= $this->renderSection('content'); ?>
                 </div>
 
-                <footer>
+                <!-- <footer>
                     <div class="footer clearfix mb-0 text-muted">
                         <div class="float-start">
                             <p>2021 &copy; KangIT</p>
@@ -168,10 +166,68 @@
                                 by <a href="https://lawarna.info">KangIT</a></p>
                         </div>
                     </div>
-                </footer>
+                </footer> -->
             </div>
         </div>
     </div>
+
+    <!-- Vertically Centered modal Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <form action="<?= route_to('print_view') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="jabatan">From</label>
+                                <div class="input-group position-relative">
+                                    <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                    <input type="date" class="form-control" id="from" name="from">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="jabatan">To</label>
+                                <div class="input-group position-relative">
+                                    <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                    <input type="date" class="form-control" id="to" name="to">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="jabatan">Role</label>
+                                <div class="input-group position-relative">
+                                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                    <select name="table" id="table" class="form-select">
+                                        <option value="asn">ASN</option>
+                                        <option value="honorer">HONORER</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ml-1">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Accept</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <?= $this->renderSection('before-script'); ?>
     <script src="<?= base_url('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/bootstrap.bundle.min.js'); ?>"></script>

@@ -79,6 +79,11 @@ $routes->group('profile', function ($routes) {
     $routes->post('update_profile/(:num)', 'profile::update_profile/$1', ['as' => 'update_profile']);
     $routes->post('update_password/(:num)', 'profile::update_password/$1', ['as' => 'update_password']);
 });
+
+// PRINT
+$routes->group('print', function ($routes) {
+    $routes->post('view', 'cetak::index', ['as' => 'print_view']);
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing

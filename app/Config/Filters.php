@@ -53,8 +53,9 @@ class Filters extends BaseConfig
                     'user/*',
                     'asn/*',
                     'honorer/*',
-                    'login/*',
-                    'profile/*'
+                    'login/logout',
+                    'profile/*',
+                    'print/*',
                 ],
             ],
             'asn' => [
@@ -62,7 +63,8 @@ class Filters extends BaseConfig
                     '/',
                     'asn/list',
                     'asn/show/*',
-                    'login/*',
+                    'login/logout',
+                    'profile/*'
                 ],
             ],
             'honorer' => [
@@ -70,17 +72,12 @@ class Filters extends BaseConfig
                     '/',
                     'honorer/list',
                     'honorer/show/*',
-                    'login/*',
+                    'login/logout',
+                    'profile/*'
                 ],
             ],
         ],
         'after' => [
-            // 'auth' => [
-            //     'except' => [
-            //         '/',
-            //         'asn/list'
-            //     ],
-            // ],
             'toolbar',
             // 'honeypot',
         ],
