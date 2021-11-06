@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
                     'foto' => '1635925649~1.jpeg',
                     'nama' => 'honorer',
                     'tanggal_lahir' => '1999-01-10',
-                    'nip' => 0,
+                    'nip' => 14141414,
                     'jabatan' => 'honorer',
                     'unit' => 'honorer',
                     'password' => password_hash('honorer', PASSWORD_DEFAULT),
