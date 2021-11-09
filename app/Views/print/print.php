@@ -9,11 +9,17 @@
                     <div class="card-body">
                         <!-- table bordered -->
                         <div class="table-responsive" id="printableArea">
+                            <div class="text-center">
+                                <h6>REKAPAN ABSENSI PEGAWAI</h6>
+                                <h6>DINAS PERINDUSTRIAN DAN PEGAWAI KABUPATEN JAYAPURA</h6>
+                                <h6>BULAN <?= $bulan ?></h6>
+                            </div>
                             <table class="table table-bordered mb-0">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Nama</th>
+                                        <th>NIP</th>
                                         <th>Jabatan</th>
                                         <th>Unit</th>
                                         <th>Bulan absen</th>
@@ -22,14 +28,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php if ($absens->getResult('array') == null) : ?>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <h4>Data Kosong</h4>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+
                                     <?php $i = 1;
                                     foreach ($absens->getResult('array') as $absen) : ?>
                                         <tr>
                                             <td><?= $i++; ?></td>
                                             <td><?= $absen['nama']; ?></td>
+                                            <td><?= $absen['nip']; ?></td>
                                             <td><?= $absen['jabatan']; ?></td>
                                             <td><?= $absen['unit']; ?></td>
-                                            <td><?= $absen['absen']; ?></td>
+                                            <td><?= date_format(date_create($absen['absen']), 'Y-F'); ?></td>
                                             <td><?= $absen['jumlah']; ?></td>
                                             <td><?= $absen['keterangan']; ?></td>
                                         </tr>

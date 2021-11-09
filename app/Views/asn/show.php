@@ -51,7 +51,7 @@
                                     <label for="absen">Bulan Absen</label>
                                     <div class="input-group position-relative">
                                         <span class="input-group-text"><i class="bi bi-calendar-month"></i></span>
-                                        <input type="text" class="form-control" value="<?= $asnData['absen'] ?>" disabled>
+                                        <input type="text" class="form-control" value="<?= date_format(date_create($asnData['absen']), 'Y-F'); ?>" disabled>
                                     </div>
                                 </div>
                             </div>

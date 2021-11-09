@@ -44,10 +44,6 @@ class Auth implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        // if (session()->get('isLoggedIn') && session()->get('role') == 'admin') {
-        //     return redirect()->route('Home');
-        // } else {
-        //     return redirect()->route('Home');
-        // }
+        //
     }
 }

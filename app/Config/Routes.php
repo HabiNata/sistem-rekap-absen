@@ -34,7 +34,7 @@ $routes->setAutoRoute(true);
 $routes->group('login', function ($routes) {
     $routes->get('login', 'Login::index', ['as' => 'login']);
     $routes->post('auth', 'Login::auth', ['as' => 'user_auth']);
-    $routes->get('logout', 'login::logout', ['as' => 'user_logout']);
+    $routes->get('logout', 'Login::logout', ['as' => 'user_logout']);
 });
 
 $routes->get('/', 'Home::index', ['as' => 'home']);
@@ -53,36 +53,36 @@ $routes->group('asn', function ($routes) {
 
 // HONORER
 $routes->group('honorer', function ($routes) {
-    $routes->get('list', 'honorer::index', ['as' => 'list_honorer']);
-    $routes->get('show/(:num)', 'honorer::show/$1', ['as' => 'show_honorer']);
-    $routes->get('create', 'honorer::create', ['as' => 'create_honorer']);
-    $routes->post('store', 'honorer::store', ['as' => 'store_honorer']);
-    $routes->post('data/(:num)', 'honorer::data/$1', ['as' => 'data_user']);
-    $routes->get('edit/(:num)', 'honorer::edit/$1', ['as' => 'edit_honorer']);
-    $routes->patch('update/(:num)', 'honorer::update', ['as' => 'update_honorer']);
-    $routes->delete('delete/(:num)', 'honorer::delete/$1', ['as' => 'delete_honorer']);
+    $routes->get('list', 'Honorer::index', ['as' => 'list_honorer']);
+    $routes->get('show/(:num)', 'Honorer::show/$1', ['as' => 'show_honorer']);
+    $routes->get('create', 'Honorer::create', ['as' => 'create_honorer']);
+    $routes->post('store', 'Honorer::store', ['as' => 'store_honorer']);
+    $routes->post('data/(:num)', 'Honorer::data/$1', ['as' => 'data_user']);
+    $routes->get('edit/(:num)', 'Honorer::edit/$1', ['as' => 'edit_honorer']);
+    $routes->patch('update/(:num)', 'Honorer::update', ['as' => 'update_honorer']);
+    $routes->delete('delete/(:num)', 'Honorer::delete/$1', ['as' => 'delete_honorer']);
 });
 
 // USER
 $routes->group('user', function ($routes) {
-    $routes->get('list', 'user::index', ['as' => 'list_user']);
-    $routes->get('create', 'user::create', ['as' => 'create_user']);
-    $routes->post('store', 'user::store', ['as' => 'store_user']);
-    $routes->get('edit/(:num)', 'user::edit/$1', ['as' => 'edit_user']);
-    $routes->patch('update/(:num)', 'user::update/$1', ['as' => 'update_user']);
-    $routes->delete('delete/(:num)', 'user::delete/$1', ['as' => 'delete_user']);
+    $routes->get('list', 'User::index', ['as' => 'list_user']);
+    $routes->get('create', 'User::create', ['as' => 'create_user']);
+    $routes->post('store', 'User::store', ['as' => 'store_user']);
+    $routes->get('edit/(:num)', 'User::edit/$1', ['as' => 'edit_user']);
+    $routes->patch('update/(:num)', 'User::update/$1', ['as' => 'update_user']);
+    $routes->delete('delete/(:num)', 'User::delete/$1', ['as' => 'delete_user']);
 });
 
 // PROFILE
 $routes->group('profile', function ($routes) {
-    $routes->get('user/(:num)', 'profile::index/$1', ['as' => 'profile']);
-    $routes->post('update_profile/(:num)', 'profile::update_profile/$1', ['as' => 'update_profile']);
-    $routes->post('update_password/(:num)', 'profile::update_password/$1', ['as' => 'update_password']);
+    $routes->get('user/(:any)', 'Profile::index/$1', ['as' => 'profile']);
+    $routes->post('update_profile/(:any)', 'Profile::update_profile/$1', ['as' => 'update_profile']);
+    $routes->post('update_password/(:any)', 'Profile::update_password/$1', ['as' => 'update_password']);
 });
 
 // PRINT
 $routes->group('print', function ($routes) {
-    $routes->post('view', 'cetak::index', ['as' => 'print_view']);
+    $routes->post('view', 'Cetak::index', ['as' => 'print_view']);
 });
 /*
  * --------------------------------------------------------------------

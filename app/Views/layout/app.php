@@ -187,7 +187,7 @@
                                 <label for="jabatan">From</label>
                                 <div class="input-group position-relative">
                                     <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
-                                    <input type="date" class="form-control" id="from" name="from">
+                                    <input type="month" class="form-control" id="from" name="from">
                                 </div>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <label for="jabatan">To</label>
                                 <div class="input-group position-relative">
                                     <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
-                                    <input type="date" class="form-control" id="to" name="to">
+                                    <input type="month" class="form-control" id="to" name="to">
                                 </div>
                             </div>
                         </div>

@@ -49,7 +49,7 @@
                             <td><?= $i++; ?></td>
                             <td><?= $honorerData['nama']; ?></td>
                             <td><?= $honorerData['jabatan']; ?></td>
-                            <td><?= $honorerData['absen']; ?></td>
+                            <td><?= date_format(date_create($honorerData['absen']), 'Y-F'); ?></td>
                             <td><?= $honorerData['jumlah']; ?></td>
                             <td><?= word_limiter($honorerData['keterangan'], 10) . '....' ?></td>
                             <td>

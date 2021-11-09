@@ -57,7 +57,7 @@ class Honorer extends BaseController
 
         $validation = $this->validate([
             'nama' => ['required', 'numeric'],
-            'absen' => ['required', 'valid_date'],
+            'absen' => ['required', 'in_list[01,02,03,04,05,06,07,08,09,10,11,12]'],
             'jumlah' => ['required', 'numeric'],
             'keterangan' => [],
         ]);
@@ -68,7 +68,7 @@ class Honorer extends BaseController
 
         $data = [
             'user_id' => $this->request->getVar('nama'),
-            'absen' => $this->request->getVar('absen'),
+            'absen' => date('Y') . '-' . $this->request->getVar('absen') . '-' . 01,
             'jumlah' => $this->request->getVar('jumlah'),
             'keterangan' => $this->request->getVar('keterangan'),
         ];
@@ -93,6 +93,8 @@ class Honorer extends BaseController
 
         $userDatas = $user->select('id, nama')->where('role', 'honorer')->findAll();
         $honorerData = $honorer->select('honorer.*, user.jabatan')->join('user', 'user.id=honorer.user_id')->find($id);
+        $absen = explode('-', $honorerData['absen']);
+        $honorerData['absen'] = $absen[1];
 
         $data = [
             'title' => 'Edit Absen Honorer',
@@ -108,10 +110,12 @@ class Honorer extends BaseController
     public function update($id)
     {
         $honorer = new HonorerModel();
+        $honorerData = $honorer->find($id);
+        $absen = explode('-', $honorerData['absen']);
 
         $validation = $this->validate([
             'nama' => ['required', 'numeric'],
-            'absen' => ['required', 'valid_date'],
+            'absen' => ['required', 'in_list[01,02,03,04,05,06,07,08,09,10,11,12]'],
             'jumlah' => ['required', 'numeric'],
             'keterangan' => [],
         ]);
@@ -122,19 +126,18 @@ class Honorer extends BaseController
 
         $data = [
             'user_id' => $this->request->getVar('nama'),
-            'absen' => $this->request->getVar('absen'),
+            'absen' => $absen[0] . '-' . $this->request->getVar('absen') . '-' . 01,
             'jumlah' => $this->request->getVar('jumlah'),
             'keterangan' => $this->request->getVar('keterangan'),
         ];
-        // dd($data);
 
         $insert = $honorer->update($id, $data);
 
         if ($insert) {
-            session()->setFlashdata('success', 'Berhasil Input Data');
+            session()->setFlashdata('success', 'Berhasil Update Data');
             return redirect()->to(route_to('list_honorer'));
         } else {
-            session()->setFalshdata('failed', 'Gagal Input Data');
+            session()->setFalshdata('failed', 'Gagal Update Data');
             return redirect()->to(route_to('create_honorer'));
         }
     }

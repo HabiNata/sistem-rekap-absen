@@ -51,7 +51,7 @@
                             <td><?= $asnData['nama']; ?></td>
                             <td><?= $asnData['nip']; ?></td>
                             <td><?= $asnData['jabatan']; ?></td>
-                            <td><?= $asnData['absen']; ?></td>
+                            <td><?= date_format(date_create($asnData['absen']), 'Y-F'); ?></td>
                             <td><?= $asnData['jumlah']; ?></td>
                             <td><?= word_limiter($asnData['keterangan'], 10) . '....' ?></td>
                             <td>
