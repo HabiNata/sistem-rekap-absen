@@ -49,13 +49,15 @@
                             <td><?= $i++; ?></td>
                             <td><?= $honorerData['nama']; ?></td>
                             <td><?= $honorerData['jabatan']; ?></td>
-                            <td><?= $honorerData['absen']; ?></td>
+                            <td><?= date_format(date_create($honorerData['absen']), 'Y-F'); ?></td>
                             <td><?= $honorerData['jumlah']; ?></td>
                             <td><?= word_limiter($honorerData['keterangan'], 10) . '....' ?></td>
                             <td>
                                 <a href="<?= route_to('show_honorer', $honorerData['id']); ?>" class="btn btn-light btn-sm">Show</a>
-                                <a href="<?= route_to('edit_honorer', $honorerData['id']); ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="#" class="btn btn-danger btn-sm removeEventDB" data-id="<?= $honorerData['id']; ?>" data-url="<?= route_to('delete_honorer', $honorerData['id']); ?>">Delete</a>
+                                <?php if (session()->get('role') === 'admin') : ?>
+                                    <a href="<?= route_to('edit_honorer', $honorerData['id']); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="#" class="btn btn-danger btn-sm removeEventDB" data-id="<?= $honorerData['id']; ?>" data-url="<?= route_to('delete_honorer', $honorerData['id']); ?>">Delete</a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

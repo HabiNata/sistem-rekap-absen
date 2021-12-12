@@ -55,7 +55,20 @@
                                         <label for="absen">Bulan Absen</label>
                                         <div class="input-group position-relative">
                                             <span class="input-group-text"><i class="bi bi-calendar-month"></i></span>
-                                            <input type="date" class="form-control <?= $validation->hasError('absen') ? 'is-invalid' : '' ?>" id="absen" name="absen" value="<?= old('absen'); ?>">
+                                            <select name="absen" id="absen" class="form-select <?= $validation->hasError('absen') ? 'is-invalid' : '' ?>">
+                                                <option value="01">Januari</option>
+                                                <option value="02">Februari</option>
+                                                <option value="03">Maret</option>
+                                                <option value="04">April</option>
+                                                <option value="05">Mei</option>
+                                                <option value="06">Juni</option>
+                                                <option value="07">Juli</option>
+                                                <option value="08">Agustus</option>
+                                                <option value="09">September</option>
+                                                <option value="10">Oktober</option>
+                                                <option value="11">November</option>
+                                                <option value="12">Desember</option>
+                                            </select>
                                             <div class="invalid-feedback">
                                                 <?= $validation->getError('absen'); ?>
                                             </div>

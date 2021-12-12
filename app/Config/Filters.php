@@ -2,6 +2,11 @@
 
 namespace Config;
 
+use App\Filters\Admin;
+use App\Filters\Asn;
+use App\Filters\Auth;
+use App\Filters\Guest;
+use App\Filters\Honorer;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -19,6 +24,11 @@ class Filters extends BaseConfig
         'csrf'     => CSRF::class,
         'toolbar'  => DebugToolbar::class,
         'honeypot' => Honeypot::class,
+        'guest' => Guest::class,
+        'auth' => Auth::class,
+        'admin' => Admin::class,
+        'asn' => Asn::class,
+        'honorer' => Honorer::class,
     ];
 
     /**
@@ -29,8 +39,43 @@ class Filters extends BaseConfig
      */
     public $globals = [
         'before' => [
-            // 'honeypot',
+            'honeypot',
             // 'csrf',
+            'auth' => [
+                'except' => [
+                    'login/*',
+                    'login/logout/*',
+                ],
+            ],
+            'admin' => [
+                'except' => [
+                    '/',
+                    'user/*',
+                    'asn/*',
+                    'honorer/*',
+                    'login/logout',
+                    'profile/*',
+                    'print/*',
+                ],
+            ],
+            'asn' => [
+                'except' => [
+                    '/',
+                    'asn/list',
+                    'asn/show/*',
+                    'login/logout',
+                    'profile/*'
+                ],
+            ],
+            'honorer' => [
+                'except' => [
+                    '/',
+                    'honorer/list',
+                    'honorer/show/*',
+                    'login/logout',
+                    'profile/*'
+                ],
+            ],
         ],
         'after' => [
             'toolbar',

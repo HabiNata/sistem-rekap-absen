@@ -67,7 +67,20 @@
                                         <label for="absen">Bulan Absen</label>
                                         <div class="input-group position-relative">
                                             <span class="input-group-text"><i class="bi bi-calendar-month"></i></span>
-                                            <input type="date" class="form-control <?= $validation->hasError('absen') ? 'is-invalid' : '' ?>" id="absen" name="absen" value="<?= old('absen') ? old('absen') : $asnData['absen']; ?>">
+                                            <select name="absen" id="absen" class="form-select <?= $validation->hasError('absen') ? 'is-invalid' : '' ?>">
+                                                <option value="01" <?= old('absen') || $asnData['absen'] == '01' ? 'selected' : '' ?>>Januari</option>
+                                                <option value="02" <?= old('absen') || $asnData['absen'] == '02' ? 'selected' : '' ?>>Februari</option>
+                                                <option value="03" <?= old('absen') || $asnData['absen'] == '03' ? 'selected' : '' ?>>Maret</option>
+                                                <option value="04" <?= old('absen') || $asnData['absen'] == '04' ? 'selected' : '' ?>>April</option>
+                                                <option value="05" <?= old('absen') || $asnData['absen'] == '05' ? 'selected' : '' ?>>Mei</option>
+                                                <option value="06" <?= old('absen') || $asnData['absen'] == '06' ? 'selected' : '' ?>>Juni</option>
+                                                <option value="07" <?= old('absen') || $asnData['absen'] == '07' ? 'selected' : '' ?>>Juli</option>
+                                                <option value="08" <?= old('absen') ||  $asnData['absen'] == '08' ? 'selected' : '' ?>>Agustus</option>
+                                                <option value="09" <?= old('absen') ||  $asnData['absen'] == '09' ? 'selected' : '' ?>>September</option>
+                                                <option value="10" <?= old('absen') || $asnData['absen'] == '10' ? 'selected' : '' ?>>Oktober</option>
+                                                <option value="11" <?= old('absen') || $asnData['absen'] == '11' ? 'selected' : '' ?>>November</option>
+                                                <option value="12" <?= old('absen') || $asnData['absen'] == '12' ? 'selected' : '' ?>>Desember</option>
+                                            </select>
                                             <div class="invalid-feedback">
                                                 <?= $validation->getError('absen'); ?>
                                             </div>

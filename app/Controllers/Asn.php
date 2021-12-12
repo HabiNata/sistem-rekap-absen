@@ -17,8 +17,12 @@ class Asn extends BaseController
     {
         $asn = new AsnModel();
 
-        $asnDatas = $asn->select('asn.*, asn.user_id, user.nama, user.jabatan, user.nip')->join('user', 'asn.user_id=user.id')->findAll();
-        // dd($asnDatas);
+        if (session()->get('role') == 'admin') {
+            $asnDatas = $asn->select('asn.*, asn.user_id, user.nama, user.jabatan, user.nip')->join('user', 'asn.user_id=user.id')->findAll();
+        }
+        if (session()->get('role') == 'asn') {
+            $asnDatas = $asn->select('asn.*, asn.user_id, user.nama, user.jabatan, user.nip')->join('user', 'asn.user_id=user.id')->where('user.nip', session()->get('nip'))->findAll();
+        }
 
         $data = [
             'title' => 'List Absen ASN',
@@ -53,9 +57,9 @@ class Asn extends BaseController
 
         $validation = $this->validate([
             'nama' => ['required', 'numeric'],
-            'absen' => ['required', 'valid_date'],
+            'absen' => ['required', 'in_list[01,02,03,04,05,06,07,08,09,10,11,12]'],
             'jumlah' => ['required', 'numeric'],
-            'keterangan' => ['required'],
+            'keterangan' => [],
         ]);
 
         if (!$validation) {
@@ -64,7 +68,7 @@ class Asn extends BaseController
 
         $data = [
             'user_id' => $this->request->getVar('nama'),
-            'absen' => $this->request->getVar('absen'),
+            'absen' => date('Y') . '-' . $this->request->getVar('absen') . '-' . 01,
             'jumlah' => $this->request->getVar('jumlah'),
             'keterangan' => $this->request->getVar('keterangan'),
         ];
@@ -87,6 +91,8 @@ class Asn extends BaseController
 
         $userDatas = $user->select('id, nama')->where('role', 'asn')->findAll();
         $asnData = $asn->select('asn.*, user.nama, user.nip, user.jabatan')->join('user', 'asn.user_id=user.id')->find($id);
+        $absen = explode('-', $asnData['absen']);
+        $asnData['absen'] = $absen[1];
 
         $data = [
             'title' => 'Edit Absen ASN',
@@ -103,12 +109,13 @@ class Asn extends BaseController
     {
         $asn = new AsnModel();
         $asnData = $asn->find($id);
-        // dd($asnData);
+        $absen = explode('-', $asnData['absen']);
+
         $validation = $this->validate([
             'nama' => ['required', 'numeric'],
-            'absen' => ['required', 'valid_date'],
+            'absen' => ['required', 'in_list[01,02,03,04,05,06,07,08,09,10,11,12]'],
             'jumlah' => ['required', 'numeric'],
-            'keterangan' => ['required'],
+            'keterangan' => [],
         ]);
 
         if (!$validation) {
@@ -117,18 +124,18 @@ class Asn extends BaseController
 
         $data = [
             'user_id' => $this->request->getVar('nama'),
-            'absen' => $this->request->getVar('absen'),
+            'absen' => $absen[0] . '-' . $this->request->getVar('absen') . '-' . 01,
             'jumlah' => $this->request->getVar('jumlah'),
             'keterangan' => $this->request->getVar('keterangan'),
         ];
-
+        // dd($data);
         $insert = $asn->update($id, $data);
 
         if ($insert) {
-            session()->setFlashdata('success', 'Berhasil Input Data');
+            session()->setFlashdata('success', 'Berhasil Update Data');
             return redirect()->to(route_to('list_asn'));
         } else {
-            session()->setFalshdata('failed', 'Gagal Input Data');
+            session()->setFalshdata('failed', 'Gagal Update Data');
             return redirect()->to(route_to('create_asn'));
         }
     }

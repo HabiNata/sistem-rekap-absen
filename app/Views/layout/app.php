@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vertical Navbar - Mazer Admin Dashboard</title>
+    <title>Rekap Absensi</title>
     <?= $this->renderSection('before-style'); ?>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -20,17 +20,12 @@
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
+                <div class="sidebar-menu">
+                    <div class="d-flex justify-content-center mt-3">
                         <div class="logo">
-                            <a href="#"><img src="<?= base_url('assets/images/logo/logo.png'); ?>" alt="Logo" srcset=""></a>
-                        </div>
-                        <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                            <a href="<?= route_to('home'); ?>"><img src="<?= base_url('assets/images/logo/LOGO.jpeg'); ?>" alt="Logo" srcset="" height="100" width="100" class="rounded"></a>
                         </div>
                     </div>
-                </div>
-                <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
@@ -41,50 +36,69 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub <?= isset($user_active) ? 'active' : '' ?>">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-person-fill"></i>
-                                <span>Data User</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item">
-                                    <a href="<?= route_to('list_user'); ?>">LIST</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="<?= route_to('create_user'); ?>">ADD</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php if (session()->get('role') === 'admin') : ?>
+                            <li class="sidebar-item has-sub <?= isset($user_active) ? 'active' : '' ?>">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-person-fill"></i>
+                                    <span>Data User</span>
+                                </a>
+                                <ul class="submenu ">
+                                    <li class="submenu-item">
+                                        <a href="<?= route_to('list_user'); ?>">LIST</a>
+                                    </li>
+                                    <li class="submenu-item">
+                                        <a href="<?= route_to('create_user'); ?>">ADD</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
 
-                        <li class="sidebar-item has-sub <?= isset($asn_active) ? 'active' : '' ?>">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-check-square-fill"></i>
-                                <span>ASN</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="<?= route_to('list_asn'); ?>">LIST</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<?= route_to('create_asn'); ?>">ADD</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php if (session()->get('role') === 'admin' || session()->get('role') === 'asn') : ?>
+                            <li class="sidebar-item has-sub <?= isset($asn_active) ? 'active' : '' ?>">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-check-square-fill"></i>
+                                    <span>ASN</span>
+                                </a>
+                                <ul class="submenu ">
+                                    <li class="submenu-item ">
+                                        <a href="<?= route_to('list_asn'); ?>">LIST</a>
+                                    </li>
+                                    <?php if (session()->get('role') === 'admin') : ?>
+                                        <li class="submenu-item ">
+                                            <a href="<?= route_to('create_asn'); ?>">ADD</a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
 
-                        <li class="sidebar-item  has-sub <?= isset($hr_active) ? 'active' : '' ?>">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-clock-fill"></i>
-                                <span>HONORER</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="<?= route_to('list_honorer') ?>">LIST</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<?= route_to('create_honorer'); ?>">ADD</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php if (session()->get('role') === 'admin' || session()->get('role') === 'honorer') : ?>
+                            <li class="sidebar-item  has-sub <?= isset($hr_active) ? 'active' : '' ?>">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-clock-fill"></i>
+                                    <span>HONORER</span>
+                                </a>
+                                <ul class="submenu">
+                                    <li class="submenu-item">
+                                        <a href="<?= route_to('list_honorer') ?>">LIST</a>
+                                    </li>
+                                    <?php if (session()->get('role') === 'admin') : ?>
+                                        <li class="submenu-item ">
+                                            <a href="<?= route_to('create_honorer'); ?>">ADD</a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if (session()->get('role') === 'admin') : ?>
+                            <li class="sidebar-item">
+                                <a href="#" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <i class="bi bi-printer-fill"></i>
+                                    <span>Print</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -107,26 +121,26 @@
                                     <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="user-menu d-flex">
                                             <div class="user-name text-end me-3">
-                                                <h6 class="mb-0 text-gray-600">John Ducky</h6>
-                                                <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                                <h6 class="mb-0 text-gray-600"><?= session()->get('nama'); ?></h6>
+                                                <p class="mb-0 text-sm text-gray-600 text-uppercase"><?= session()->get('role'); ?></p>
                                             </div>
                                             <div class="user-img d-flex align-items-center">
                                                 <div class="avatar avatar-md">
-                                                    <img src="<?= base_url('assets/images/faces/1.jpg'); ?>">
+                                                    <img src="<?= base_url('image/' . session()->get('foto')); ?>">
                                                 </div>
                                             </div>
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
                                         <li>
-                                            <h6 class="dropdown-header">Hello, John!</h6>
+                                            <h6 class="dropdown-header">Hello, <?= session()->get('nama'); ?>!</h6>
                                         </li>
-                                        <li><a class="dropdown-item" href="<?= route_to('profile'); ?>"><i class="icon-mid bi bi-person me-2"></i> My
+                                        <li><a class="dropdown-item" href="<?= route_to('profile', session()->get('id')); ?>"><i class="icon-mid bi bi-person me-2"></i> My
                                                 Profile</a>
                                         </li>
                                         <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
+                                        <li><a class="dropdown-item" href="<?= route_to('user_logout'); ?>"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -147,7 +161,7 @@
                     <?= $this->renderSection('content'); ?>
                 </div>
 
-                <footer>
+                <!-- <footer>
                     <div class="footer clearfix mb-0 text-muted">
                         <div class="float-start">
                             <p>2021 &copy; KangIT</p>
@@ -157,10 +171,68 @@
                                 by <a href="https://lawarna.info">KangIT</a></p>
                         </div>
                     </div>
-                </footer>
+                </footer> -->
             </div>
         </div>
     </div>
+
+    <!-- Vertically Centered modal Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <form action="<?= route_to('print_view') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="jabatan">From</label>
+                                <div class="input-group position-relative">
+                                    <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                    <input type="month" class="form-control" id="from" name="from">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="jabatan">To</label>
+                                <div class="input-group position-relative">
+                                    <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                    <input type="month" class="form-control" id="to" name="to">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="jabatan">Role</label>
+                                <div class="input-group position-relative">
+                                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                    <select name="table" id="table" class="form-select">
+                                        <option value="asn">ASN</option>
+                                        <option value="honorer">HONORER</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ml-1">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Accept</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <?= $this->renderSection('before-script'); ?>
     <script src="<?= base_url('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/bootstrap.bundle.min.js'); ?>"></script>

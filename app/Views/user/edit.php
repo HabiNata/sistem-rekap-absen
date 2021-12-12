@@ -66,8 +66,20 @@ use CodeIgniter\Filters\CSRF;
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12" id="hide">
+                                    <div class="col-12">
                                         <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <div class="input-group position-relative">
+                                                <span class="input-group-text"><i class="bi bi-mailbox"></i></span>
+                                                <input type="email" class="form-control <?= ($validation->hasError('email')) ? 'is-invalid' : '' ?>" placeholder="Email@email.com" id="email" name="email" value="<?= old('email') ? old('email') : $userData['email']; ?>">
+                                                <div class="invalid-feedback">
+                                                    <?= $validation->getError('email'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group" id="hiden">
                                             <label for="nip">NIP</label>
                                             <div class="input-group position-relative">
                                                 <span class="input-group-text"><i class="bi bi-hash"></i></span>
@@ -146,22 +158,24 @@ use CodeIgniter\Filters\CSRF;
 <script src="<?= base_url('assets/js/pages/form-element-select.js'); ?>"></script>
 <script>
     const role = document.getElementById('role');
-    const hide = document.getElementById('hide');
+    const hiden = document.getElementById('hiden');
     const nip = document.getElementById('nip');
-    if (role.value == "admin" || role.value == "asn") {
-        hide.hidden = false;
-    } else {
-        hide.hidden = true;
+    const nipValue = nip.value;
+
+    if (role.value == 'honorer' || role.value == 'admin') {
+        hiden.hidden = true;
         nip.value = null;
+    } else {
+        hiden.hidden = false;
     }
 
-    role.onchange = event => {
-        let roleValue = role.value;
-        if (roleValue == "asn" || roleValue == "admin") {
-            hide.hidden = false;
-        } else {
-            hide.hidden = true;
+    role.onchange = () => {
+        if (role.value == 'honorer' || role.value == 'admin') {
+            hiden.hidden = true;
             nip.value = null;
+        } else {
+            hiden.hidden = false;
+            nip.value = nipValue;
         }
     }
 </script>

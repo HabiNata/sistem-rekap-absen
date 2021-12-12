@@ -57,6 +57,18 @@ use CodeIgniter\Filters\CSRF;
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <div class="input-group position-relative">
+                                                <span class="input-group-text"><i class="bi bi-mailbox"></i></span>
+                                                <input type="email" class="form-control <?= ($validation->hasError('email')) ? 'is-invalid' : '' ?>" placeholder="Email@email.com" id="email" name="email" value="<?= old('email'); ?>">
+                                                <div class="invalid-feedback">
+                                                    <?= $validation->getError('email'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
                                             <label for="nama">Nama</label>
                                             <div class="input-group position-relative">
                                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
@@ -67,7 +79,7 @@ use CodeIgniter\Filters\CSRF;
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12" id="hide">
+                                    <div class="col-12" id='hiden'>
                                         <div class="form-group">
                                             <label for="nip">NIP</label>
                                             <div class="input-group position-relative">
@@ -142,19 +154,23 @@ use CodeIgniter\Filters\CSRF;
 <?= $this->endSection(); ?>
 
 <?= $this->section('after-script'); ?>
+<script src="<?= base_url('assets/vendors/jquery/jquery.min.js'); ?>"></script>
 <!-- Include Choices JavaScript -->
 <script src="<?= base_url('assets/vendors/choices.js/choices.min.js'); ?>"></script>
 <script src="<?= base_url('assets/js/pages/form-element-select.js'); ?>"></script>
 <script>
     const role = document.getElementById('role');
-    const hide = document.getElementById('hide');
-    hide.hidden = true;
-    role.onchange = event => {
-        let roleValue = role.value;
-        if (roleValue == "asn" || roleValue == "admin") {
-            hide.hidden = false;
+    const hiden = document.getElementById('hiden');
+    const nip = document.getElementById('nip');
+
+    hiden.hidden = true;
+
+    role.onchange = () => {
+        if (role.value == 'honorer' || role.value == 'admin') {
+            hiden.hidden = true;
+            nip.value = null;
         } else {
-            hide.hidden = true;
+            hiden.hidden = false;
         }
     }
 </script>

@@ -34,15 +34,17 @@ class User extends BaseController
     public function store()
     {
         $user = new UserModel();
-        if ($this->request->getVar('role') == 'honorer') {
-            $nipRule = ['numeric', 'is_unique[user.nip]', 'permit_empty'];
-        } else {
+
+        if ($this->request->getVar('role') == 'asn') {
             $nipRule = ['required', 'numeric', 'is_unique[user.nip]'];
+        } else {
+            $nipRule = ['permit_empty'];
         }
 
         $validation = $this->validate([
             'foto' => ['uploaded[foto]', 'max_size[foto,5024]', 'is_image[foto]'],
             'nama' => ['required', 'alpha_numeric_space'],
+            'email' => ['required', 'valid_email', 'is_unique[user.email]'],
             'tanggal_lahir' => ['required', 'valid_date'],
             'nip' => $nipRule,
             'jabatan' => ['required', 'alpha_numeric_space'],
@@ -71,6 +73,7 @@ class User extends BaseController
         $data = [
             'foto' => $fileName,
             'nama' => $this->request->getVar('nama'),
+            'email' => $this->request->getVar('email'),
             'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
             'nip' => $this->request->getVar('nip'),
             'jabatan' => $this->request->getVar('jabatan'),
@@ -109,15 +112,16 @@ class User extends BaseController
 
         $userData = $user->find($id);
 
-        if ($this->request->getVar('role') == 'honorer') {
-            $nipRule = ['numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']', 'permit_empty'];
-        } else {
+        if ($this->request->getVar('role') == 'asn') {
             $nipRule = ['required', 'numeric', 'is_unique[user.nip,nip,' . $userData["nip"] . ']'];
+        } else {
+            $nipRule = ['permit_empty'];
         }
 
         $validation = $this->validate([
             'foto' => ['max_size[foto,5024]', 'is_image[foto]'],
             'nama' => ['required', 'alpha_numeric_space'],
+            'email' => ['required', 'valid_email', 'is_unique[user.email,email,' . $userData["email"] . ']'],
             'tanggal_lahir' => ['required', 'valid_date'],
             'nip' => $nipRule,
             'jabatan' => ['required', 'alpha_numeric_space'],
@@ -146,6 +150,7 @@ class User extends BaseController
         $data = [
             'foto' => $fileName,
             'nama' => $this->request->getVar('nama'),
+            'email' => $this->request->getVar('email'),
             'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
             'nip' => $this->request->getVar('nip'),
             'jabatan' => $this->request->getVar('jabatan'),
