@@ -23,7 +23,7 @@
                 <div class="sidebar-menu">
                     <div class="d-flex justify-content-center mt-3">
                         <div class="logo">
-                            <a href="<?= route_to('home'); ?>"><img src="<?= base_url('assets/images/logo/LOGO.jpeg'); ?>" alt="Logo" srcset="" height="100" width="100" class="rounded"></a>
+                            <a href="<?= route_to('home'); ?>"><img src="<?= base_url('assets/images/logo/LOGO.jpg'); ?>" alt="Logo" srcset="" height="100" width="100" class="rounded"></a>
                         </div>
                     </div>
                     <ul class="menu">
