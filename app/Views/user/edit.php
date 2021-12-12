@@ -68,10 +68,22 @@ use CodeIgniter\Filters\CSRF;
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <div class="input-group position-relative">
+                                                <span class="input-group-text"><i class="bi bi-mailbox"></i></span>
+                                                <input type="email" class="form-control <?= ($validation->hasError('email')) ? 'is-invalid' : '' ?>" placeholder="Email@email.com" id="email" name="email" value="<?= old('email') ? old('email') : $userData['email']; ?>">
+                                                <div class="invalid-feedback">
+                                                    <?= $validation->getError('email'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group" id="hiden">
                                             <label for="nip">NIP</label>
                                             <div class="input-group position-relative">
                                                 <span class="input-group-text"><i class="bi bi-hash"></i></span>
-                                                <input type="text" class="form-control <?= ($validation->hasError('nip')) ? 'is-invalid' : '' ?>" placeholder="NIP" id="nip" name="nip" value="<?= old('nip') ? old('nip') : $userData['nip']; ?>">
+                                                <input type="number" class="form-control <?= ($validation->hasError('nip')) ? 'is-invalid' : '' ?>" placeholder="NIP" id="nip" name="nip" value="<?= old('nip') ? old('nip') : $userData['nip']; ?>">
                                                 <div class="invalid-feedback">
                                                     <?= $validation->getError('nip'); ?>
                                                 </div>
@@ -146,24 +158,24 @@ use CodeIgniter\Filters\CSRF;
 <script src="<?= base_url('assets/js/pages/form-element-select.js'); ?>"></script>
 <script>
     const role = document.getElementById('role');
+    const hiden = document.getElementById('hiden');
     const nip = document.getElementById('nip');
+    const nipValue = nip.value;
 
     if (role.value == 'honorer' || role.value == 'admin') {
-        nip.type = 'text';
-        nip.readOnly = true;
+        hiden.hidden = true;
+        nip.value = null;
     } else {
-        nip.type = 'number';
-        nip.readOnly = false;
+        hiden.hidden = false;
     }
 
     role.onchange = () => {
         if (role.value == 'honorer' || role.value == 'admin') {
-            nip.type = 'text';
-            nip.readOnly = true;
-            nip.value = role.value + Math.floor(Math.random() * 1000);
+            hiden.hidden = true;
+            nip.value = null;
         } else {
-            nip.type = 'number';
-            nip.readOnly = false;
+            hiden.hidden = false;
+            nip.value = nipValue;
         }
     }
 </script>

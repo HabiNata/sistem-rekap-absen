@@ -75,9 +75,9 @@ $routes->group('user', function ($routes) {
 
 // PROFILE
 $routes->group('profile', function ($routes) {
-    $routes->get('user/(:any)', 'Profile::index/$1', ['as' => 'profile']);
-    $routes->post('update_profile/(:any)', 'Profile::update_profile/$1', ['as' => 'update_profile']);
-    $routes->post('update_password/(:any)', 'Profile::update_password/$1', ['as' => 'update_password']);
+    $routes->get('user/(:num)', 'Profile::index/$1', ['as' => 'profile']);
+    $routes->post('update_profile/(:num)', 'Profile::update_profile/$1', ['as' => 'update_profile']);
+    $routes->post('update_password/(:num)', 'Profile::update_password/$1', ['as' => 'update_password']);
 });
 
 // PRINT

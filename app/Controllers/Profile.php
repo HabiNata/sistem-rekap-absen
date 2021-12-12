@@ -7,18 +7,23 @@ use App\Models\UserModel;
 
 class Profile extends BaseController
 {
-    public function index($nip)
+    public function index($id)
     {
+        if ($id !== session()->get('id')) {
+            return redirect()->back();
+        }
+
         session();
 
         $user = new UserModel();
-        $userData = $user->where('nip', $nip)->first();
+        $userData = $user->where('id', $id)->first();
 
         $data = [
             'title' => 'Profile',
             'validation' => \Config\Services::validation(),
             'userData' => $userData,
         ];
+
         return view('profile/profile', $data);
     }
 
@@ -30,6 +35,7 @@ class Profile extends BaseController
 
         $validation = $this->validate([
             'nama' => ['required', 'alpha_numeric_space'],
+            'email' => ['required', 'valid_email', 'is_unique[user.email,email,' . $userData["email"] . ']'],
             'tanggal_lahir' => ['required', 'valid_date'],
         ]);
 
@@ -39,6 +45,7 @@ class Profile extends BaseController
 
         $data = [
             'nama' => $this->request->getVar('nama'),
+            'email' => $this->request->getVar('email'),
             'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
         ];
         // dd($data);
@@ -47,10 +54,10 @@ class Profile extends BaseController
 
         if ($update) {
             session()->setFlashdata('success', 'Profile Update');
-            return redirect()->to(route_to('profile', $userData['nip']));
+            return redirect()->to(route_to('profile', $userData['id']));
         } else {
             session()->setFlashdata('failed', 'Failed Profile Update');
-            return redirect()->to(route_to('profile', $userData['nip']));
+            return redirect()->to(route_to('profile', $userData['id']));
         }
     }
 
@@ -71,19 +78,19 @@ class Profile extends BaseController
         ]);
 
         if (!$validation) {
-            return redirect()->to(route_to('profile', $userData['nip']))->withInput();
+            return redirect()->to(route_to('profile', $userData['id']))->withInput();
         }
 
         $data = ['password' => password_hash($this->request->getVar('new_password'), PASSWORD_DEFAULT)];
-        // dd($data);
+
         $update = $user->update($id, $data);
 
         if ($update) {
             session()->setFlashdata('success', 'Password Update');
-            return redirect()->to(route_to('profile', $userData['nip']));
+            return redirect()->to(route_to('profile', $userData['id']));
         } else {
             session()->setFlashdata('failed', 'Failed Password Update');
-            return redirect()->to(route_to('profile', $userData['nip']));
+            return redirect()->to(route_to('profile', $userData['id']));
         }
     }
 }

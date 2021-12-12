@@ -28,14 +28,14 @@
                     </div>
 
                     <h1 class="auth-title">Log in.</h1>
-                    <p class="auth-subtitle mb-5">Log in with your NIP</p>
+                    <p class="auth-subtitle mb-5">Log in with your Email</p>
 
                     <form action="<?= route_to('user_auth'); ?>" method="post" enctype="multipart/form">
 
                         <?= csrf_field() ?>
 
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl <?= $validation->hasError('username') ? 'is-invalid' : '' ?>" placeholder="NIP" name="username" id="username">
+                            <input type="text" class="form-control form-control-xl <?= $validation->hasError('username') ? 'is-invalid' : '' ?>" placeholder="Email" name="username" id="username">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>

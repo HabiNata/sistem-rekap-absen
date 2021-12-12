@@ -57,6 +57,18 @@ use CodeIgniter\Filters\CSRF;
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <div class="input-group position-relative">
+                                                <span class="input-group-text"><i class="bi bi-mailbox"></i></span>
+                                                <input type="email" class="form-control <?= ($validation->hasError('email')) ? 'is-invalid' : '' ?>" placeholder="Email@email.com" id="email" name="email" value="<?= old('email'); ?>">
+                                                <div class="invalid-feedback">
+                                                    <?= $validation->getError('email'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
                                             <label for="nama">Nama</label>
                                             <div class="input-group position-relative">
                                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
@@ -67,7 +79,7 @@ use CodeIgniter\Filters\CSRF;
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12" id='hiden'>
                                         <div class="form-group">
                                             <label for="nip">NIP</label>
                                             <div class="input-group position-relative">
@@ -148,16 +160,17 @@ use CodeIgniter\Filters\CSRF;
 <script src="<?= base_url('assets/js/pages/form-element-select.js'); ?>"></script>
 <script>
     const role = document.getElementById('role');
+    const hiden = document.getElementById('hiden');
     const nip = document.getElementById('nip');
+
+    hiden.hidden = true;
 
     role.onchange = () => {
         if (role.value == 'honorer' || role.value == 'admin') {
-            nip.type = 'text';
-            nip.readOnly = true;
-            nip.value = role.value + Math.floor(Math.random() * 1000);
+            hiden.hidden = true;
+            nip.value = null;
         } else {
-            nip.type = 'number';
-            nip.readOnly = false;
+            hiden.hidden = false;
         }
     }
 </script>

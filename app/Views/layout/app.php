@@ -21,6 +21,11 @@
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-menu">
+                    <div class="d-flex justify-content-center mt-3">
+                        <div class="logo">
+                            <a href="<?= route_to('home'); ?>"><img src="<?= base_url('assets/images/logo/LOGO.jpeg'); ?>" alt="Logo" srcset="" height="100" width="100" class="rounded"></a>
+                        </div>
+                    </div>
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
@@ -130,7 +135,7 @@
                                         <li>
                                             <h6 class="dropdown-header">Hello, <?= session()->get('nama'); ?>!</h6>
                                         </li>
-                                        <li><a class="dropdown-item" href="<?= route_to('profile', session()->get('nip')); ?>"><i class="icon-mid bi bi-person me-2"></i> My
+                                        <li><a class="dropdown-item" href="<?= route_to('profile', session()->get('id')); ?>"><i class="icon-mid bi bi-person me-2"></i> My
                                                 Profile</a>
                                         </li>
                                         <hr class="dropdown-divider">

@@ -11,10 +11,6 @@ class Login extends BaseController
     {
         session();
 
-        // if (session()->get('isLoggedIn')) {
-        //     return redirect()->route('home');
-        // }
-
         $data = [
             'validation' => \Config\Services::validation(),
         ];
@@ -30,22 +26,23 @@ class Login extends BaseController
         $user = new UserModel();
 
         $validation = $this->validate([
-            'username' => ['required', 'alpha_numeric_punct'],
+            'username' => ['required', 'valid_email'],
             'password' => ['required'],
         ]);
 
         if (!$validation) {
             return redirect()->to(route_to('login'))->withInput();
         }
-        $userData = $user->where('nip', $this->request->getVar('username'))->first();
-        // dd($userData);
+        $userData = $user->where('email', $this->request->getVar('username'))->first();
+
         if ($userData && password_verify($this->request->getVar('password'), $userData['password'])) {
             $data = [
+                'id' => $userData['id'],
                 'nama' => $userData['nama'],
                 'nip' => $userData['nip'],
+                'email' => $userData['email'],
                 'foto' => $userData['foto'],
                 'role' => $userData['role'],
-                'jabatan' => $userData['jabatan'],
                 'isLoggedIn' => true,
             ];
             session()->set($data);

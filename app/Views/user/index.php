@@ -33,10 +33,10 @@
                         <th>#</th>
                         <th>Foto</th>
                         <th>Nama</th>
+                        <th>Email</th>
                         <th>NIP</th>
                         <th>Tanggal Lahir</th>
                         <th>Jabatan</th>
-                        <th>Unit Kerja</th>
                         <th>Role</th>
                         <th>Action</th>
                     </tr>
@@ -47,13 +47,13 @@
                         <tr>
                             <td><?= $i++; ?></td>
                             <th>
-                                <div class="avatar avatar-lg"><img src="<?= base_url('image/' . $userData['foto']) ?>" alt=""></div>
+                                <div class="avatar avatar-md"><img src="<?= base_url('image/' . $userData['foto']) ?>" alt=""></div>
                             </th>
                             <td><?= $userData['nama']; ?></td>
+                            <td><?= $userData['email']; ?></td>
                             <td><?= $userData['nip']; ?></td>
                             <td><?= $userData['tanggal_lahir']; ?></td>
                             <td><?= $userData['jabatan']; ?></td>
-                            <td><?= $userData['unit']; ?></td>
                             <td class="text-uppercase"><?= $userData['role']; ?></td>
                             <td>
                                 <a href="<?= route_to('edit_user', $userData['id']); ?>" class="btn btn-warning btn-sm">Edit</a>

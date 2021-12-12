@@ -36,6 +36,13 @@
                                 <input type="text" id="nip" class="form-control" name="nip" value="<?= $userData['nip']; ?>" disabled>
                             </div>
                             <div class="col-md-12">
+                                <label class="nip">Email</label>
+                                <input type="email" id="email" class="form-control <?= $validation->getError('email') ? 'is-invalid' : '' ?>" name="email" value="<?= $userData['email']; ?>">
+                                <div class="invalid-feedback">
+                                    <?= $validation->showError('email'); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <label class="nama">Nama</label>
                                 <input type="text" id="nama" class="form-control <?= $validation->getError('nama') ? 'is-invalid' : '' ?>" name="nama" value="<?= $userData['nama']; ?>">
                                 <div class="invalid-feedback">

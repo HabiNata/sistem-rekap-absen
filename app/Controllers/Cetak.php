@@ -32,9 +32,11 @@ class Cetak extends BaseController
             $absens = $builder->where("absen BETWEEN '$from-01' AND '$to-01'")->where($table . '.deleted_at', null)->join('user', 'user.id=' . $table . '.user_id')->get();
         }
 
+        $bulan = $from == null && $to == null ? 'ALL DATA' : date_format(date_create($from . '-01'), 'Y-F') . ' sampai ' . date_format(date_create($to . '-01'), 'Y-F');
+
         $data = [
             'title' => 'Cetak',
-            'bulan' => date_format(date_create($from . '-01'), 'Y-F') . ' sampai ' . date_format(date_create($to . '-01'), 'Y-F'),
+            'bulan' => $bulan,
             'absens' => $absens,
         ];
 

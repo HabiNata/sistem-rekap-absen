@@ -11,8 +11,8 @@
                         <div class="table-responsive" id="printableArea">
                             <div class="text-center">
                                 <h6>REKAPAN ABSENSI PEGAWAI</h6>
-                                <h6>DINAS PERINDUSTRIAN DAN PEGAWAI KABUPATEN JAYAPURA</h6>
-                                <h6>BULAN <?= $bulan ?></h6>
+                                <h6>DINAS PERINDUSTRIAN DAN PERDAGANGAN KABUPATEN JAYAPURA</h6>
+                                <h6><?= $bulan ?></h6>
                             </div>
                             <table class="table table-bordered mb-0">
                                 <thead>
